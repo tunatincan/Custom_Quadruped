@@ -1,0 +1,1 @@
+Low-Resolution of the Robot due to size limitations.
