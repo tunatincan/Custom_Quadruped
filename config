@@ -1,0 +1,85 @@
+import odrive
+from odrive.enums import *
+import time
+
+print("ERASING CONFIGURATION... (Waiting 10s for reboot)")
+try:
+    odrv0.erase_configuration()
+except:
+    pass # Expected to lose connection
+
+time.sleep(10)
+# User requested removal of find_any() reconnection
+
+print("Configuring Axis 0...")
+
+# 1. Voltage Protection (12V PSU Safety)
+odrv0.config.dc_bus_overvoltage_trip_level = 16.0
+odrv0.config.dc_bus_undervoltage_trip_level = 8.0
+odrv0.config.brake_resistance = 2.0
+odrv0.config.max_regen_current = 0 # Force brake resistor
+
+# 2. Motor Physics (8318 120KV)
+odrv0.axis0.motor.config.pole_pairs = 20
+odrv0.axis0.motor.config.motor_type = MOTOR_TYPE_HIGH_CURRENT
+odrv0.axis0.motor.config.torque_constant = 0.069 
+odrv0.axis0.motor.config.current_lim = 30
+odrv0.axis0.motor.config.calibration_current = 10
+
+# 3. Encoder (AS5047P SPI)
+odrv0.axis0.encoder.config.abs_spi_cs_gpio_pin = 7
+odrv0.axis0.encoder.config.cpr = 16384
+odrv0.axis0.encoder.config.mode = 257
+
+# 4. TUNING (USER REQUESTED STIFFNESS)
+odrv0.axis0.motor.config.current_control_bandwidth = 100 # Low bandwidth (Great for heavy loads)
+odrv0.axis0.encoder.config.bandwidth = 100            # Low bandwidth (Less noise)
+odrv0.axis0.controller.config.pos_gain = 50              # STIFF
+odrv0.axis0.controller.config.vel_gain = 0.15            # Damped (Less Bounce) 
+odrv0.axis0.controller.config.vel_integrator_gain = 0.5  # Strong Holding
+
+# 5. CAN Bus
+odrv0.axis0.config.can_node_id = 0  # CHANGE THIS TO 1 FOR MOTOR 1!
+odrv0.axis1.config.can_node_id = 30 # Move Ghost Axis 1 out of the way
+
+print("Saving Base Config... (Waiting 10s)")
+odrv0.save_configuration()
+time.sleep(10)
+# User requested removal of find_any()
+
+print("REBOOTING Before Calibration (Waiting 10s)...")
+try:
+    odrv0.reboot()
+except:
+    pass
+time.sleep(10)
+
+# 5. SPI / Encoder Hygiene (Already moved Axis 1 Node ID)
+
+print("CALIBRATING... (Beep + Spin)")
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+time.sleep(15) # Wait for calibration
+
+if not odrv0.axis0.encoder.is_ready:
+    err = hex(odrv0.axis0.error)
+    enc_err = hex(odrv0.axis0.encoder.error)
+    mot_err = hex(odrv0.axis0.motor.error)
+    raise RuntimeError(f"Calibration Failed! AxisErr: {err}, EncErr: {enc_err}, MotErr: {mot_err}")
+
+print("Calibration SUCCESS. Saving...")
+odrv0.axis0.encoder.config.pre_calibrated = True
+odrv0.axis0.motor.config.pre_calibrated = True
+odrv0.axis0.config.startup_motor_calibration = False
+odrv0.axis0.config.startup_encoder_offset_calibration = False 
+odrv0.axis0.config.startup_closed_loop_control = False       
+
+print("DONE! Saving (Waiting 10s)...")
+odrv0.save_configuration()
+time.sleep(10)
+print("Rebooting...")
+try:
+    odrv0.reboot()
+except:
+    pass
+print("Setup Complete. Ready for Arduino.")
+
