@@ -1,0 +1,21 @@
+print("\n=== ODrive DIAGNOSTIC REPORT ===")
+print(f"VBUS Voltage: {odrv0.vbus_voltage:.2f}V")
+
+axis = odrv0.axis0
+
+print(f"\n--- Axis State ---")
+print(f"Current State: {axis.current_state}")
+print(f"requested_state: {axis.requested_state}")
+
+print(f"\n--- Errors ---")
+print(f"Axis Error: {hex(axis.error)}")
+print(f"Motor Error: {hex(axis.motor.error)}")
+print(f"Encoder Error: {hex(axis.encoder.error)}")
+print(f"Controller Error: {hex(axis.controller.error)}")
+
+print(f"\n--- Calibration Status ---")
+print(f"Motor Pre-Calibrated: {axis.motor.config.pre_calibrated}")
+print(f"Encoder Pre-Calibrated: {axis.encoder.config.pre_calibrated}")
+print(f"Encoder Ready: {axis.encoder.is_ready}")
+print(f"Motor Is Calibrated: {axis.motor.is_calibrated}")
+
