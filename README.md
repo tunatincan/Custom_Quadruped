@@ -1,5 +1,37 @@
-# Custom_Quadruped
-Custom 12-DOF Quadruped Robot Hardware Platform &amp; Control System (ROS 2 Foxy, MPC, MKS_ODrive)
+# Open-Architecture Quadruped Platform for Dynamic Locomotion & Embodied AI
+**(Custom Hardware for Torque-Level Control Research)**
+
+## 1. Project Overview
+**"Why build a custom robot?"**
+Commercial quadrupeds often rely on "black-box" controllers, limiting research on low-level dynamics and novel learning algorithms.
+This project aims to develop a **fully open-source, 12-DOF quadruped robot** designed to validate:
+- **Dynamic Locomotion:** High-bandwidth torque control for robust walking on unstructured terrain.
+- **Embodied AI:** Sim-to-Real transfer of learning-based policies (RL / Active Inference).
+
+## 2. Hardware Design Philosophy
+> **Goal:** Maximizing transparency and back-drivability for interaction.
+
+- **Low Inertia Legs:** Co-axial actuation with fuselage-mounted motors to minimize leg mass.
+- **Transmission:** **Cable-driven Capstan Mechanism** to eliminate backlash and ensure high back-drivability.
+- **Proprioception:** Estimating ground reaction forces (GRF) purely via current sensing (FOC) without external torque sensors.
+- **Open Architecture:** Full access to low-level control loops (1kHz) via CAN/UART.
+<img width="2560" height="1082" alt="Image" src="https://github.com/user-attachments/assets/e8031cea-083f-4d49-baf5-3c66b0d53155" />
+
+*(Caption: Full-body design for high-dynamic maneuvers)*
+
+## 3. Current Development Status
+> **Phase 1 Complete: Single Leg Module Verification**
+
+Successfully fabricated and verified the core actuator module.
+
+![Image](https://github.com/user-attachments/assets/ba6e91bb-07b7-4ef0-99e3-27a2363621ef)
+*(Caption: Fabricated single leg module and torque test setup)*
+
+## 4. Tech Stack
+- **Hardware:** High-Torque BLDC Motors, ODrive v3.6 (FOC), Custom CNC/3D Printed Parts
+- **Main Controller:** Nvidia AGX Xaiver / Rasberry Pi 5
+- **Software:** ROS 2 (Humble)
+
 Explanation for files  
 custom_quadruped/  
 ├── cad/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Fusion 360 Original Files  
