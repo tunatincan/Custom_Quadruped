@@ -30,6 +30,7 @@ Successfully fabricated and verified the core actuator module.
 ## 4. Tech Stack
 - **Hardware:** High-Torque BLDC Motors, ODrive v3.6 (FOC), Custom CNC/3D Printed Parts
 - **Main Controller:** Nvidia AGX Xaiver / Rasberry Pi 5
+- **Real-time Controller: ** STM32 Nucleo-F439ZI
 - **Software:** ROS 2 (Humble)
 
 Explanation for files  
