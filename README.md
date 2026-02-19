@@ -25,7 +25,7 @@ This project aims to develop a **fully open-source, 12-DOF quadruped robot** des
 Successfully fabricated and verified the core actuator module.
 
 ![Image](https://github.com/user-attachments/assets/ba6e91bb-07b7-4ef0-99e3-27a2363621ef)
-*(Caption: Fabricated single leg module and torque test setup)*
+*(Caption: Fabricated single leg module)*
 
 ## 4. Tech Stack
 - **Hardware:** High-Torque BLDC Motors, ODrive v3.6 (FOC), Custom CNC/3D Printed Parts
