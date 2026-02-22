@@ -39,6 +39,11 @@ Successfully fabricated and verified the core actuator module.
 - Issue: During the physical assembly, I realized that fastening the 70mm M4 screws to connect the limbs required completely disassembling the robot leg and reassembling it directly on the chassis—a severe maintenance bottleneck.
 - Solution: Completely modularized the leg/arm bases. The interface parts are now mounted to the chassis first, allowing the fully pre-assembled limbs to be attached instantly. Furthermore, the outer housing screw directions were inverted (outside-in) for easier access.
 
+![Image](https://github.com/user-attachments/assets/e7eb0b6c-abc5-49e3-9b09-3ce1f2501eb1)
+*(caption: Modularized side wall (motor mount plate). By separating this wall from the main base using screws, the arm assembly can now be easily installed and wired independently.)*
+
+![Image](https://github.com/user-attachments/assets/d270b8a7-3e83-4487-ad76-00e899047d11)
+*(caption: Main chassis designed to quickly integrate the pre-assembled modules)*
 2. Thermal Management & Wiring Routing
 - Braking Resistor Relocation: Recognized the severe heat dissipation of the braking resistors. To prevent thermal damage and interference with the DC-DC step-down converter, the resistors were relocated to the opposite side of the motor drivers, optimizing the thermal layout.
 
@@ -52,9 +57,14 @@ Successfully fabricated and verified the core actuator module.
 4. Clearance Tuning & Rapid Workaround
 - Interference Resolution: Identified multiple interference points during assembly (XT90 housing, big drum/motor joint, and a 3mm tolerance error in the limb-chassis link).
 
+![Image](https://github.com/user-attachments/assets/c69e2d63-1afe-461a-873e-8665e66aae1a)
+
 - Action Taken: To save rapid-prototyping resources (time and filament), I performed on-the-fly physical modifications (e.g., trimming the small drum) for the current prototype, while permanently fixing all 1mm/3mm clearances and stopper constraints in the final CAD model.
 
-- Tooling Troubleshooting: 3D Printer Thermal UpgradeIssue: While printing new PETG parts at an 80°C bed temperature on my Sindoh WOX 2X, the previously installed PLA holders for the Y-axis LM8UU linear bearings deformed due to exceeding PLA's Glass Transition Temperature ($T_g$).
+![Image](https://github.com/user-attachments/assets/e73a6c53-0be0-4792-b285-866b8c259825)
+5. Tooling Troubleshooting: 3D Printer Thermal Upgrade
+
+- Issue: While printing new PETG parts at an 80°C bed temperature on my Sindoh WOX 2X, the previously installed PLA holders for the Y-axis LM8UU linear bearings deformed due to exceeding PLA's Glass Transition Temperature ($T_g$).
 
 - Solution: Paused the project, printed high-temp PETG replacement holders on a secondary printer, and installed them with fiber washers for clearance. I also wrapped the assembly in Kapton tape for superior thermal insulation, fully upgrading the printer for continuous high-temperature manufacturing.
 
